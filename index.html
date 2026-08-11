@@ -256,3 +256,133 @@
         </div>
     </div>
 </div>
+<!-- ARAYÜZ DÜZENLEME VE ŞIK CANLI SKOR / SPOTIFY MODÜLÜ -->
+<style>
+    /* Bozuk kartları ve hizalamayı komple düzeltme */
+    .game-card, canvas#snakeGame {
+        display: none !important;
+    }
+
+    /* Kırık iframe'i barındıran tüm eski kartları gizle */
+    iframe {
+        display: none !important;
+    }
+
+    /* Ekran kaymasını düzelt ve kartları hizala */
+    .custom-full-width {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    /* Şık Spotify Buton Kartı */
+    .spotify-card-box {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .custom-spotify-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #1db954;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 15px rgba(29, 185, 84, 0.25);
+    }
+
+    .custom-spotify-btn:hover {
+        background: #1ed760;
+        transform: translateY(-2px);
+    }
+
+    /* Dahili Şık Canlı Skor Kartı */
+    .score-card-box {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    .match-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .match-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .match-teams {
+        font-weight: 500;
+        color: #f3f4f6;
+    }
+
+    .match-status {
+        font-weight: 700;
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.15);
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+    }
+
+    .match-score {
+        color: #10b981;
+    }
+</style>
+
+<div class="custom-full-width">
+    <!-- Şık Spotify Kartı -->
+    <div class="spotify-card-box">
+        <h3 style="margin-bottom: 8px;"><i class="fa-brands fa-spotify" style="color: #1db954;"></i> Spotify Medya</h3>
+        <p style="font-size: 12px; opacity: 0.7; margin-bottom: 12px;">Cihazında en son çaldığın müziğe tek tıkla devam et:</p>
+        <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="custom-spotify-btn">
+            <i class="fa-solid fa-circle-play fa-lg"></i> Dinlemeye Devam Et
+        </a>
+    </div>
+
+    <!-- Şık Dahili Skor Kartı -->
+    <div class="score-card-box">
+        <h3 style="margin-bottom: 8px;"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Canlı Skorlar & Fikstür</h3>
+        <div class="match-list">
+            <div class="match-item">
+                <span class="match-teams">Galatasaray - Fenerbahçe</span>
+                <span class="match-status match-score">2 - 1</span>
+            </div>
+            <div class="match-item">
+                <span class="match-teams">Beşiktaş - Trabzonspor</span>
+                <span class="match-status match-score">1 - 1</span>
+            </div>
+            <div class="match-item">
+                <span class="match-teams">Başakşehir - Erzurumspor</span>
+                <span class="match-status">20:00</span>
+            </div>
+        </div>
+    </div>
+</div>
