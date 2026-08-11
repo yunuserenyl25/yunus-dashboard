@@ -200,3 +200,59 @@
         </div>
     </div>
 </div>
+<!-- EK DÜZENLEMELER VE YENİ MODÜLLER -->
+<style>
+    /* Eski ve bozuk görünen Yılan Oyununu gizler */
+    .game-card, canvas#snakeGame {
+        display: none !important;
+    }
+    
+    .custom-spotify-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #1db954;
+        color: white;
+        padding: 14px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: 0.2s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    }
+    
+    .custom-spotify-btn:hover {
+        background: #1ed760;
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+    // Yılan oyununu ve bozuk iframe'leri dom üzerinden tamamen temizler
+    document.addEventListener("DOMContentLoaded", function() {
+        const gameCards = document.querySelectorAll('.game-card');
+        gameCards.forEach(card => card.remove());
+    });
+</script>
+
+<div class="grid-container" style="margin-top: 20px;">
+    <!-- Spotify Doğrudan Oynatma Butonu -->
+    <div class="card glass-card">
+        <h3><i class="fa-brands fa-spotify" style="color: #1db954;"></i> Spotify Son Müzik</h3>
+        <p style="font-size: 13px; opacity: 0.8; margin-bottom: 12px;">Cihazındaki Spotify'da en son çaldığın müziğe/listeye hemen devam et:</p>
+        <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="custom-spotify-btn">
+            <i class="fa-solid fa-circle-play fa-xl"></i> Spotify'da Dinlemeye Devam Et
+        </a>
+    </div>
+
+    <!-- Canlı Skorlar (Yerli & Türkçe Kaynak) -->
+    <div class="card glass-card">
+        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar (Süper Lig & Avrupa)</h3>
+        <div class="score-widget">
+            <iframe src="https://widget.mobi.mackolik.com/livescore" frameborder="0" width="100%" height="220" style="border-radius:12px; background:#1e293b;" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
