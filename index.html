@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yunus Dashboard - Kişisel Asistan</title>
+    <meta name="description" content="Yunus Dashboard: Hava durumu, yapılacaklar listesi, odak sesleri ve canlı piyasa kurları içeren kişisel kontrol paneli.">
+    <meta name="keywords" content="Yunus Dashboard, yunus dashboard, kişisel panel">
+    <meta name="author" content="Yunus">
+
+    <!-- CSS Bağlantısı -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Dış Kütüphaneler (İkonlar ve Fontlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="background-overlay"></div>
+
+<!-- Tema Değiştirici Butonlar -->
+<div class="theme-picker">
+    <button onclick="changeTheme('purple')" class="theme-btn purple-btn" title="Uzay Teması"></button>
+    <button onclick="changeTheme('emerald')" class="theme-btn emerald-btn" title="Zümrüt Teması"></button>
+    <button onclick="changeTheme('sunset')" class="theme-btn sunset-btn" title="Gün Batımı Teması"></button>
+</div>
+
+<main class="dashboard-container">
+    
+    <!-- ÜST KISIM: Saat, Karşılama ve Arama -->
+    <header class="header-section glass-card">
+        <h1 id="clock">00:00:00</h1>
+        <h2 id="greeting">Hoş Geldin!</h2>
+        <p id="date">Yükleniyor...</p>
+
+        <!-- Hızlı Google Arama Çubuğu -->
+        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-bar">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" name="q" placeholder="Google'da ara veya URL yaz..." autocomplete="off">
+        </form>
+    </header>
+
+    <!-- ORTA KISIM: Modüller Gridi -->
+    <section class="grid-container">
+        
+        <!-- Modül 1: Yapılacaklar Listesi -->
+        <div class="card glass-card">
+            <h3><i class="fa-solid fa-check-double"></i> Yapılacaklar</h3>
+            <div class="todo-input-group">
+                <input type="text" id="todo-input" placeholder="Yeni görev ekle...">
+                <button id="add-todo-btn"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <ul id="todo-list"></ul>
+        </div>
+
+        <!-- Modül 2: Pomodoro Zamanlayıcı -->
+        <div class="card glass-card pomodoro-card">
+            <h3><i class="fa-solid fa-stopwatch"></i> Odak Zamanlayıcı</h3>
+            <div class="timer-display" id="timer">25:00</div>
+            <div class="timer-controls">
+                <button id="start-timer"><i class="fa-solid fa-play"></i> Başlat</button>
+                <button id="reset-timer"><i class="fa-solid fa-rotate-right"></i> Sıfırla</button>
+            </div>
+        </div>
+
+        <!-- Modül 3: Hızlı Kısayollar -->
+        <div class="card glass-card">
+            <h3><i class="fa-solid fa-compass"></i> Hızlı Erişim</h3>
+            <div class="shortcuts-grid">
+                <a href="https://google.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-google"></i> Google</a>
+                <a href="https://youtube.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                <a href="https://github.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://open.spotify.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-spotify"></i> Spotify</a>
+            </div>
+        </div>
+
+        <!-- Modül 4: Canlı Hava Durumu (Erzurum) -->
+        <div class="card glass-card weather-card">
+            <h3><i class="fa-solid fa-cloud-sun"></i> Hava Durumu</h3>
+            <div class="weather-info">
+                <i class="fa-solid fa-sun weather-icon" id="weather-icon"></i>
+                <div>
+                    <div class="temp" id="weather-temp">--°C</div>
+                    <div class="location" id="weather-location">Erzurum</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modül 5: Odak Sesleri -->
+        <div class="card glass-card">
+            <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
+            <div class="audio-controls">
+                <button class="audio-btn" id="rain-btn" onclick="toggleAudio('rain')">
+                    <i class="fa-solid fa-cloud-rain"></i> Yağmur
+                </button>
+                <button class="audio-btn" id="lofi-btn" onclick="toggleAudio('lofi')">
+                    <i class="fa-solid fa-music"></i> Lofi Beats
+                </button>
+            </div>
+            <audio id="rain-audio" loop src="https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3"></audio>
+            <audio id="lofi-audio" loop src="https://assets.mixkit.co/music/preview/mixkit-chill-bro-494.mp3"></audio>
+        </div>
+
+        <!-- Modül 6: Motivasyon Sözü -->
+        <div class="card glass-card quote-card">
+            <h3><i class="fa-solid fa-quote-left"></i> Günün Sözü</h3>
+            <p id="quote-text" class="quote-body">"Başarı, her gün tekrarlanan küçük çabaların toplamıdır."</p>
+            <span id="quote-author" class="quote-author">- Robert Collier</span>
+        </div>
+
+        <!-- Modül 7: Canlı Piyasa -->
+        <div class="card glass-card">
+            <h3><i class="fa-solid fa-chart-line"></i> Piyasalar</h3>
+            <div class="market-grid">
+                <div class="market-item">
+                    <span class="market-label">USD / TRY</span>
+                    <span id="usd-rate" class="market-value">Yükleniyor...</span>
+                </div>
+                <div class="market-item">
+                    <span class="market-label">EUR / TRY</span>
+                    <span id="eur-rate" class="market-value">Yükleniyor...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modül 8: Hızlı Not Defteri -->
+        <div class="card glass-card">
+            <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
+            <textarea id="quick-notepad" placeholder="Aklına gelenleri buraya karala (otomatik kaydedilir)..."></textarea>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- JS Bağlantısı -->
+<script src="script.js"></script>
+</body>
+</html>
