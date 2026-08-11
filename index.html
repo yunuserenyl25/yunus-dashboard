@@ -168,3 +168,35 @@
         </div>
     </div>
 </div>
+<!-- DÜZELTİLMİŞ MÜZİK VE SKOR WİDGETLARI -->
+<script>
+    // Eski kırık iframe'leri ekran görünümünden gizleme
+    document.addEventListener("DOMContentLoaded", function() {
+        const frames = document.querySelectorAll("iframe");
+        frames.forEach(f => {
+            if (f.src.includes("scorebat") || f.src.includes("37i9dQZF1DXdLENR312A35")) {
+                if (f.parentElement && f.parentElement.parentElement) {
+                    f.parentElement.parentElement.style.display = "none";
+                }
+            }
+        });
+    });
+</script>
+
+<div class="grid-container" style="margin-top: 20px;">
+    <!-- Çalışan Spotify Müzik Çalar -->
+    <div class="card glass-card">
+        <h3><i class="fa-solid fa-music"></i> Spotify Türkçe Pop / Hip-Hop</h3>
+        <div class="music-player">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- Çalışan Canlı Skorlar -->
+    <div class="card glass-card">
+        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar & Maçlar</h3>
+        <div class="score-widget">
+            <iframe src="https://www.sofascore.com/embed/event-list" frameborder="0" width="100%" height="200" style="border-radius:12px; background:#ffffff;"></iframe>
+        </div>
+    </div>
+</div>
