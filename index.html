@@ -1,388 +1,127 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta name="google-site-verification" content="TAaefUdBKSnY-JsNLNfHZrCeXWpPjEr5wg22Faj4EeE" />    <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yunus Dashboard - Kişisel Asistan</title>
-    <meta name="description" content="Yunus Dashboard: Hava durumu, yapılacaklar listesi, odak sesleri ve canlı piyasa kurları içeren kişisel kontrol paneli.">
-    <meta name="keywords" content="Yunus Dashboard, yunus dashboard, kişisel panel">
-    <meta name="author" content="Yunus">
-
-    <!-- CSS Bağlantısı -->
+    <title>Yunus Dashboard</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Dış Kütüphaneler (İkonlar ve Fontlar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<div class="background-overlay"></div>
-
-<!-- Tema Değiştirici Butonlar -->
-<div class="theme-picker">
-    <button onclick="changeTheme('purple')" class="theme-btn purple-btn" title="Uzay Teması"></button>
-    <button onclick="changeTheme('emerald')" class="theme-btn emerald-btn" title="Zümrüt Teması"></button>
-    <button onclick="changeTheme('sunset')" class="theme-btn sunset-btn" title="Gün Batımı Teması"></button>
-</div>
-
-<main class="dashboard-container">
-    
-    <!-- ÜST KISIM: Saat, Karşılama ve Arama -->
-    <header class="header-section glass-card">
-        <h1 id="clock">00:00:00</h1>
-        <h2 id="greeting">Hoş Geldin!</h2>
-        <p id="date">Yükleniyor...</p>
-
-        <!-- Hızlı Google Arama Çubuğu -->
-        <form action="https://www.google.com/search" method="GET" target="_blank" class="search-bar">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" name="q" placeholder="Google'da ara veya URL yaz..." autocomplete="off">
-        </form>
-    </header>
-
-    <!-- ORTA KISIM: Modüller Gridi -->
-    <section class="grid-container">
-        
-        <!-- Modül 1: Yapılacaklar Listesi -->
-        <div class="card glass-card">
-            <h3><i class="fa-solid fa-check-double"></i> Yapılacaklar</h3>
-            <div class="todo-input-group">
-                <input type="text" id="todo-input" placeholder="Yeni görev ekle...">
-                <button id="add-todo-btn"><i class="fa-solid fa-plus"></i></button>
-            </div>
-            <ul id="todo-list"></ul>
+    <div class="dashboard-container">
+        <!-- Tema Seçici -->
+        <div class="theme-picker">
+            <span class="theme-dot purple" onclick="setTheme('purple')"></span>
+            <span class="theme-dot green" onclick="setTheme('green')"></span>
+            <span class="theme-dot red" onclick="setTheme('red')"></span>
         </div>
 
-        <!-- Modül 2: Pomodoro Zamanlayıcı -->
-        <div class="card glass-card pomodoro-card">
-            <h3><i class="fa-solid fa-stopwatch"></i> Odak Zamanlayıcı</h3>
-            <div class="timer-display" id="timer">25:00</div>
-            <div class="timer-controls">
-                <button id="start-timer"><i class="fa-solid fa-play"></i> Başlat</button>
-                <button id="reset-timer"><i class="fa-solid fa-rotate-right"></i> Sıfırla</button>
-            </div>
-        </div>
-
-        <!-- Modül 3: Hızlı Kısayollar -->
-        <div class="card glass-card">
-            <h3><i class="fa-solid fa-compass"></i> Hızlı Erişim</h3>
-            <div class="shortcuts-grid">
-                <a href="https://google.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-google"></i> Google</a>
-                <a href="https://youtube.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                <a href="https://github.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-github"></i> GitHub</a>
-                <a href="https://open.spotify.com" target="_blank" class="shortcut-item"><i class="fa-brands fa-spotify"></i> Spotify</a>
-            </div>
-        </div>
-
-        <!-- Modül 4: Canlı Hava Durumu (Erzurum) -->
-        <div class="card glass-card weather-card">
-            <h3><i class="fa-solid fa-cloud-sun"></i> Hava Durumu</h3>
-            <div class="weather-info">
-                <i class="fa-solid fa-sun weather-icon" id="weather-icon"></i>
-                <div>
-                    <div class="temp" id="weather-temp">--°C</div>
-                    <div class="location" id="weather-location">Erzurum</div>
+        <!-- Ana Grid Yapısı -->
+        <div class="grid-container">
+            
+            <!-- 1. Saat Kartı -->
+            <div class="card glass-card clock-card">
+                <div id="clock">00:00:00</div>
+                <div id="greeting">İyi Günler!</div>
+                <div id="date">11 Ağustos 2026</div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Google'da ara veya URL yaz..." onkeypress="handleSearch(event)">
                 </div>
             </div>
-        </div>
 
-        <!-- Modül 5: Odak Sesleri -->
-        <div class="card glass-card">
-            <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
-            <div class="audio-controls">
-                <button class="audio-btn" id="rain-btn" onclick="toggleAudio('rain')">
-                    <i class="fa-solid fa-cloud-rain"></i> Yağmur
-                </button>
-                <button class="audio-btn" id="lofi-btn" onclick="toggleAudio('lofi')">
-                    <i class="fa-solid fa-music"></i> Lofi Beats
-                </button>
-            </div>
-            <audio id="rain-audio" loop src="https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3"></audio>
-            <audio id="lofi-audio" loop src="https://assets.mixkit.co/music/preview/mixkit-chill-bro-494.mp3"></audio>
-        </div>
-
-        <!-- Modül 6: Motivasyon Sözü -->
-        <div class="card glass-card quote-card">
-            <h3><i class="fa-solid fa-quote-left"></i> Günün Sözü</h3>
-            <p id="quote-text" class="quote-body">"Başarı, her gün tekrarlanan küçük çabaların toplamıdır."</p>
-            <span id="quote-author" class="quote-author">- Robert Collier</span>
-        </div>
-
-        <!-- Modül 7: Canlı Piyasa -->
-        <div class="card glass-card">
-            <h3><i class="fa-solid fa-chart-line"></i> Piyasalar</h3>
-            <div class="market-grid">
-                <div class="market-item">
-                    <span class="market-label">USD / TRY</span>
-                    <span id="usd-rate" class="market-value">Yükleniyor...</span>
+            <!-- 2. Yapılacaklar Listesi -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-list-check"></i> Yapılacaklar</h3>
+                <div class="todo-input-box">
+                    <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
+                    <button onclick="addTodo()"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <div class="market-item">
-                    <span class="market-label">EUR / TRY</span>
-                    <span id="eur-rate" class="market-value">Yükleniyor...</span>
+                <ul id="todoList"></ul>
+            </div>
+
+            <!-- 3. Odak Zamanlayıcı -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-stopwatch"></i> Odak Zamanlayıcı</h3>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button onclick="startTimer()"><i class="fa-solid fa-play"></i> Başlat</button>
+                    <button onclick="resetTimer()"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
                 </div>
             </div>
+
+            <!-- 4. Hızlı Erişim -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-compass"></i> Hızlı Erişim</h3>
+                <div class="quick-links">
+                    <a href="https://google.com" target="_blank"><i class="fa-brands fa-google"></i> Google</a>
+                    <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+                    <a href="https://spotify.com" target="_blank"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                </div>
+            </div>
+
+            <!-- 5. Hava Durumu -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-cloud-sun"></i> Hava Durumu</h3>
+                <div class="weather-box">
+                    <i class="fa-solid fa-sun weather-icon"></i>
+                    <div>
+                        <div class="temp">16°C</div>
+                        <div class="location">Erzurum</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Odak Sesleri -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
+                <div class="sound-buttons">
+                    <button onclick="toggleSound('rain')"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
+                    <button onclick="toggleSound('lofi')"><i class="fa-solid fa-music"></i> Lofi Beats</button>
+                </div>
+            </div>
+
+            <!-- 7. Günün Sözü -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-quote-left"></i> Günün Sözü</h3>
+                <p class="quote-text">"Kod yazmak bir sanattır; mantık ise onun fırçası."</p>
+                <span class="quote-author">- Anonim</span>
+            </div>
+
+            <!-- 8. Piyasalar -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-chart-line"></i> Piyasalar</h3>
+                <div class="market-item"><span>USD / TRY</span> <strong>₺47.72</strong></div>
+                <div class="market-item"><span>EUR / TRY</span> <strong>₺55.11</strong></div>
+            </div>
+
+            <!-- 9. Hızlı Not Defteri -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
+                <textarea id="noteInput" placeholder="Aklına gelenleri buraya karala (otomatik kaydedilir)..." oninput="saveNote()"></textarea>
+            </div>
+
+            <!-- 10. Spotify Oynatıcı Kartı -->
+            <div class="card glass-card text-center">
+                <h3><i class="fa-brands fa-spotify" style="color:#1db954;"></i> Spotify Medya</h3>
+                <p style="font-size: 12px; opacity: 0.8; margin-top: 8px;">Cihazındaki Spotify'da en son çaldığın parçaya devam et:</p>
+                <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="spotify-launch-btn">
+                    <i class="fa-solid fa-circle-play"></i> Spotify'da Dinle
+                </a>
+            </div>
+
+            <!-- 11. CANLI SKOR KARTI (CANLI VERİ APİ İLE ÇEKİLİR) -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Canlı Skorlar (Canlı)</h3>
+                <div id="live-scores-container" class="score-list">
+                    <div style="opacity: 0.6; font-size: 13px;">Canlı maç verileri yükleniyor...</div>
+                </div>
+            </div>
+
         </div>
+    </div>
 
-        <!-- Modül 8: Hızlı Not Defteri -->
-        <div class="card glass-card">
-            <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
-            <textarea id="quick-notepad" placeholder="Aklına gelenleri buraya karala (otomatik kaydedilir)..."></textarea>
-        </div>
-
-    </section>
-
-</main>
-
-<!-- JS Bağlantısı -->
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-<!-- YENİ MODÜLLER (Yılan Oyunu, Spotify, Canlı Skor) -->
-<div class="grid-container" style="margin-top: 20px;">
-    <!-- Modül 9: Mini Yılan Oyunu -->
-    <div class="card glass-card game-card">
-        <h3><i class="fa-solid fa-gamepad"></i> Yılan Oyunu</h3>
-        <div class="game-container">
-            <canvas id="snakeGame" width="260" height="200"></canvas>
-            <div class="game-controls">
-                <button id="start-game-btn"><i class="fa-solid fa-play"></i> Başlat</button>
-                <span id="game-score">Skor: 0</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modül 10: Dahili Müzik Çalar -->
-    <div class="card glass-card">
-        <h3><i class="fa-solid fa-music"></i> Spotify Müzik</h3>
-        <div class="music-player">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLENR312A35?utm_source=generator&theme=0" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-    </div>
-
-    <!-- Modül 11: Canlı Skorlar -->
-    <div class="card glass-card">
-        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar</h3>
-        <div class="score-widget">
-            <iframe src="https://www.scorebat.com/embed/livescore/" frameborder="0" width="100%" height="200" allowfullscreen allow="autoplay; fullscreen" class="_scorebatEmbeddedPlayer_"></iframe>
-        </div>
-    </div>
-</div>
-<!-- DÜZELTİLMİŞ MÜZİK VE SKOR WİDGETLARI -->
-<script>
-    // Eski kırık iframe'leri ekran görünümünden gizleme
-    document.addEventListener("DOMContentLoaded", function() {
-        const frames = document.querySelectorAll("iframe");
-        frames.forEach(f => {
-            if (f.src.includes("scorebat") || f.src.includes("37i9dQZF1DXdLENR312A35")) {
-                if (f.parentElement && f.parentElement.parentElement) {
-                    f.parentElement.parentElement.style.display = "none";
-                }
-            }
-        });
-    });
-</script>
-
-<div class="grid-container" style="margin-top: 20px;">
-    <!-- Çalışan Spotify Müzik Çalar -->
-    <div class="card glass-card">
-        <h3><i class="fa-solid fa-music"></i> Spotify Türkçe Pop / Hip-Hop</h3>
-        <div class="music-player">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-    </div>
-
-    <!-- Çalışan Canlı Skorlar -->
-    <div class="card glass-card">
-        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar & Maçlar</h3>
-        <div class="score-widget">
-            <iframe src="https://www.sofascore.com/embed/event-list" frameborder="0" width="100%" height="200" style="border-radius:12px; background:#ffffff;"></iframe>
-        </div>
-    </div>
-</div>
-<!-- EK DÜZENLEMELER VE YENİ MODÜLLER -->
-<style>
-    /* Eski ve bozuk görünen Yılan Oyununu gizler */
-    .game-card, canvas#snakeGame {
-        display: none !important;
-    }
-    
-    .custom-spotify-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #1db954;
-        color: white;
-        padding: 14px 20px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 15px;
-        transition: 0.2s ease;
-        margin-top: 10px;
-        box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
-    }
-    
-    .custom-spotify-btn:hover {
-        background: #1ed760;
-        transform: translateY(-2px);
-    }
-</style>
-
-<script>
-    // Yılan oyununu ve bozuk iframe'leri dom üzerinden tamamen temizler
-    document.addEventListener("DOMContentLoaded", function() {
-        const gameCards = document.querySelectorAll('.game-card');
-        gameCards.forEach(card => card.remove());
-    });
-</script>
-
-<div class="grid-container" style="margin-top: 20px;">
-    <!-- Spotify Doğrudan Oynatma Butonu -->
-    <div class="card glass-card">
-        <h3><i class="fa-brands fa-spotify" style="color: #1db954;"></i> Spotify Son Müzik</h3>
-        <p style="font-size: 13px; opacity: 0.8; margin-bottom: 12px;">Cihazındaki Spotify'da en son çaldığın müziğe/listeye hemen devam et:</p>
-        <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="custom-spotify-btn">
-            <i class="fa-solid fa-circle-play fa-xl"></i> Spotify'da Dinlemeye Devam Et
-        </a>
-    </div>
-
-    <!-- Canlı Skorlar (Yerli & Türkçe Kaynak) -->
-    <div class="card glass-card">
-        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar (Süper Lig & Avrupa)</h3>
-        <div class="score-widget">
-            <iframe src="https://widget.mobi.mackolik.com/livescore" frameborder="0" width="100%" height="220" style="border-radius:12px; background:#1e293b;" loading="lazy"></iframe>
-        </div>
-    </div>
-</div>
-<!-- ARAYÜZ DÜZENLEME VE ŞIK CANLI SKOR / SPOTIFY MODÜLÜ -->
-<style>
-    /* Bozuk kartları ve hizalamayı komple düzeltme */
-    .game-card, canvas#snakeGame {
-        display: none !important;
-    }
-
-    /* Kırık iframe'i barındıran tüm eski kartları gizle */
-    iframe {
-        display: none !important;
-    }
-
-    /* Ekran kaymasını düzelt ve kartları hizala */
-    .custom-full-width {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        margin-top: 10px;
-    }
-
-    /* Şık Spotify Buton Kartı */
-    .spotify-card-box {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .custom-spotify-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: #1db954;
-        color: white;
-        padding: 12px 18px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        transition: 0.3s ease;
-        margin-top: 10px;
-        box-shadow: 0 4px 15px rgba(29, 185, 84, 0.25);
-    }
-
-    .custom-spotify-btn:hover {
-        background: #1ed760;
-        transform: translateY(-2px);
-    }
-
-    /* Dahili Şık Canlı Skor Kartı */
-    .score-card-box {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 20px;
-    }
-
-    .match-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .match-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.25);
-        padding: 10px 14px;
-        border-radius: 10px;
-        font-size: 13px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .match-teams {
-        font-weight: 500;
-        color: #f3f4f6;
-    }
-
-    .match-status {
-        font-weight: 700;
-        color: #38bdf8;
-        background: rgba(56, 189, 248, 0.15);
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 12px;
-    }
-
-    .match-score {
-        color: #10b981;
-    }
-</style>
-
-<div class="custom-full-width">
-    <!-- Şık Spotify Kartı -->
-    <div class="spotify-card-box">
-        <h3 style="margin-bottom: 8px;"><i class="fa-brands fa-spotify" style="color: #1db954;"></i> Spotify Medya</h3>
-        <p style="font-size: 12px; opacity: 0.7; margin-bottom: 12px;">Cihazında en son çaldığın müziğe tek tıkla devam et:</p>
-        <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="custom-spotify-btn">
-            <i class="fa-solid fa-circle-play fa-lg"></i> Dinlemeye Devam Et
-        </a>
-    </div>
-
-    <!-- Şık Dahili Skor Kartı -->
-    <div class="score-card-box">
-        <h3 style="margin-bottom: 8px;"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Canlı Skorlar & Fikstür</h3>
-        <div class="match-list">
-            <div class="match-item">
-                <span class="match-teams">Galatasaray - Fenerbahçe</span>
-                <span class="match-status match-score">2 - 1</span>
-            </div>
-            <div class="match-item">
-                <span class="match-teams">Beşiktaş - Trabzonspor</span>
-                <span class="match-status match-score">1 - 1</span>
-            </div>
-            <div class="match-item">
-                <span class="match-teams">Başakşehir - Erzurumspor</span>
-                <span class="match-status">20:00</span>
-            </div>
-        </div>
-    </div>
-</div>
