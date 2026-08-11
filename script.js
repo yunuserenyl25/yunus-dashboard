@@ -245,3 +245,109 @@ const savedTheme = localStorage.getItem('omni_theme');
 if (savedTheme) {
     changeTheme(savedTheme);
 }
+// YILAN OYUNU MANTIĞI
+const canvas = document.getElementById("snakeGame");
+if (canvas) {
+    const ctx = canvas.getContext("2d");
+    const grid = 10;
+    let count = 0;
+    let score = 0;
+    let gameInterval = null;
+
+    let snake = {
+        x: 130,
+        y: 100,
+        dx: grid,
+        dy: 0,
+        cells: [],
+        maxCells: 4
+    };
+
+    let apple = { x: 50, y: 50 };
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function resetGame() {
+        snake.x = 130;
+        snake.y = 100;
+        snake.cells = [];
+        snake.maxCells = 4;
+        snake.dx = grid;
+        snake.dy = 0;
+        score = 0;
+        const scoreEl = document.getElementById("game-score");
+        if (scoreEl) scoreEl.textContent = "Skor: " + score;
+        apple.x = getRandomInt(0, canvas.width / grid) * grid;
+        apple.y = getRandomInt(0, canvas.height / grid) * grid;
+    }
+
+    function gameLoop() {
+        gameInterval = requestAnimationFrame(gameLoop);
+
+        if (++count < 6) return;
+        count = 0;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        snake.x += snake.dx;
+        snake.y += snake.dy;
+
+        if (snake.x < 0) snake.x = canvas.width - grid;
+        else if (snake.x >= canvas.width) snake.x = 0;
+
+        if (snake.y < 0) snake.y = canvas.height - grid;
+        else if (snake.y >= canvas.height) snake.y = 0;
+
+        snake.cells.unshift({ x: snake.x, y: snake.y });
+
+        if (snake.cells.length > snake.maxCells) {
+            snake.cells.pop();
+        }
+
+        ctx.fillStyle = "#f43f5e";
+        ctx.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+
+        ctx.fillStyle = "#10b981";
+        snake.cells.forEach((cell, index) => {
+            ctx.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+
+            if (cell.x === apple.x && cell.y === apple.y) {
+                snake.maxCells++;
+                score += 10;
+                const scoreEl = document.getElementById("game-score");
+                if (scoreEl) scoreEl.textContent = "Skor: " + score;
+                apple.x = getRandomInt(0, canvas.width / grid) * grid;
+                apple.y = getRandomInt(0, canvas.height / grid) * grid;
+            }
+
+            for (let i = index + 1; i < snake.cells.length; i++) {
+                if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+                    resetGame();
+                }
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft" && snake.dx === 0) {
+            snake.dx = -grid; snake.dy = 0;
+        } else if (e.key === "ArrowUp" && snake.dy === 0) {
+            snake.dy = -grid; snake.dx = 0;
+        } else if (e.key === "ArrowRight" && snake.dx === 0) {
+            snake.dx = grid; snake.dy = 0;
+        } else if (e.key === "ArrowDown" && snake.dy === 0) {
+            snake.dy = grid; snake.dx = 0;
+        }
+    });
+
+    const startBtn = document.getElementById("start-game-btn");
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            if (gameInterval) cancelAnimationFrame(gameInterval);
+            resetGame();
+            gameLoop();
+        });
+    }
+}
