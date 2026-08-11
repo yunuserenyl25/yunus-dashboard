@@ -351,3 +351,48 @@ if (canvas) {
         });
     }
 }
+// CANLI MAÇ SKORLARINI DIŞ APİ'DEN ÇEKME MANTIĞI
+async function fetchLiveScores() {
+    const container = document.getElementById('live-scores-container');
+    if (!container) return;
+
+    try {
+        // Ücretsiz Canlı Spor API'sinden güncel maç verilerini isteme
+        const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard');
+        const data = await response.json();
+
+        if (data && data.events && data.events.length > 0) {
+            container.innerHTML = ''; // Yükleniyor yazısını temizle
+            
+            // İlk 4 canlı/güncel maçı listele
+            const matches = data.events.slice(0, 4);
+            matches.forEach(event => {
+                const homeTeam = event.competitions[0].competitors[0].team.shortDisplayName || event.competitions[0].competitors[0].team.name;
+                const awayTeam = event.competitions[0].competitors[1].team.shortDisplayName || event.competitions[0].competitors[1].team.name;
+                
+                const homeScore = event.competitions[0].competitors[0].score || '0';
+                const awayScore = event.competitions[0].competitors[1].score || '0';
+                const status = event.status.type.shortDetail || 'Canlı';
+
+                const matchElement = document.createElement('div');
+                matchElement.className = 'score-item';
+                matchElement.innerHTML = `
+                    <span>${homeTeam} - ${awayTeam}</span>
+                    <span class="badge green">${homeScore} - ${awayScore} <small>(${status})</small></span>
+                `;
+                container.appendChild(matchElement);
+            });
+        } else {
+            container.innerHTML = '<div style="font-size:12px; opacity:0.7;">Şu anda aktif canlı maç bulunamadı.</div>';
+        }
+    } catch (error) {
+        console.error('Canlı skor çekilemedi:', error);
+        container.innerHTML = '<div style="font-size:12px; color:#f43f5e;">Canlı veri sunucusuna bağlanılamadı.</div>';
+    }
+}
+
+// Sayfa açıldığında çalıştır ve her 60 saniyede bir canlı skorları otomatik yenile
+document.addEventListener('DOMContentLoaded', () => {
+    fetchLiveScores();
+    setInterval(fetchLiveScores, 60000); // 60 saniye
+});
