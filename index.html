@@ -138,3 +138,33 @@
 <script src="script.js"></script>
 </body>
 </html>
+<!-- YENİ MODÜLLER (Yılan Oyunu, Spotify, Canlı Skor) -->
+<div class="grid-container" style="margin-top: 20px;">
+    <!-- Modül 9: Mini Yılan Oyunu -->
+    <div class="card glass-card game-card">
+        <h3><i class="fa-solid fa-gamepad"></i> Yılan Oyunu</h3>
+        <div class="game-container">
+            <canvas id="snakeGame" width="260" height="200"></canvas>
+            <div class="game-controls">
+                <button id="start-game-btn"><i class="fa-solid fa-play"></i> Başlat</button>
+                <span id="game-score">Skor: 0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modül 10: Dahili Müzik Çalar -->
+    <div class="card glass-card">
+        <h3><i class="fa-solid fa-music"></i> Spotify Müzik</h3>
+        <div class="music-player">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdLENR312A35?utm_source=generator&theme=0" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- Modül 11: Canlı Skorlar -->
+    <div class="card glass-card">
+        <h3><i class="fa-solid fa-football"></i> Canlı Skorlar</h3>
+        <div class="score-widget">
+            <iframe src="https://www.scorebat.com/embed/livescore/" frameborder="0" width="100%" height="200" allowfullscreen allow="autoplay; fullscreen" class="_scorebatEmbeddedPlayer_"></iframe>
+        </div>
+    </div>
+</div>
