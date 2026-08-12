@@ -16,28 +16,28 @@
             <span class="theme-dot red" onclick="setTheme('red')"></span>
         </div>
 
-        <!-- Ana Grid Yapısı -->
+        <!-- Grid Yapısı -->
         <div class="grid-container">
             
             <!-- 1. Saat Kartı -->
             <div class="card glass-card clock-card">
                 <div id="clock">00:00:00</div>
                 <div id="greeting">İyi Günler!</div>
-                <div id="date">11 Ağustos 2026</div>
+                <div id="date">--</div>
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Google'da ara veya URL yaz..." onkeypress="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Google'da ara..." onkeypress="handleSearch(event)">
                 </div>
             </div>
 
-            <!-- 2. Yapılacaklar Listesi -->
+            <!-- 2. Yapılacaklar -->
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-list-check"></i> Yapılacaklar</h3>
                 <div class="todo-input-box">
                     <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
                     <button onclick="addTodo()"><i class="fa-solid fa-plus"></i></button>
                 </div>
-                <ul id="todoList"></ul>
+                <ul id="todoList" style="list-style:none; padding:0;"></ul>
             </div>
 
             <!-- 3. Odak Zamanlayıcı -->
@@ -57,7 +57,7 @@
                     <a href="https://google.com" target="_blank"><i class="fa-brands fa-google"></i> Google</a>
                     <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
                     <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-                    <a href="https://spotify.com" target="_blank"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                    <a href="https://open.spotify.com" target="_blank"><i class="fa-brands fa-spotify"></i> Spotify</a>
                 </div>
             </div>
 
@@ -77,45 +77,45 @@
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
                 <div class="sound-buttons">
-                    <button onclick="toggleSound('rain')"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
-                    <button onclick="toggleSound('lofi')"><i class="fa-solid fa-music"></i> Lofi Beats</button>
+                    <button id="rainBtn" onclick="toggleSound('rain')"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
+                    <button id="lofiBtn" onclick="toggleSound('lofi')"><i class="fa-solid fa-music"></i> Lofi</button>
                 </div>
             </div>
 
             <!-- 7. Günün Sözü -->
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-quote-left"></i> Günün Sözü</h3>
-                <p class="quote-text">"Kod yazmak bir sanattır; mantık ise onun fırçası."</p>
-                <span class="quote-author">- Anonim</span>
+                <p class="quote-text">"Disiplin, hedefler ile başarı arasındaki köprüdür."</p>
+                <span class="quote-author">- Jim Rohn</span>
             </div>
 
             <!-- 8. Piyasalar -->
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-chart-line"></i> Piyasalar</h3>
-                <div class="market-item"><span>USD / TRY</span> <strong>₺47.72</strong></div>
-                <div class="market-item"><span>EUR / TRY</span> <strong>₺55.11</strong></div>
+                <div class="market-item"><span>USD / TRY</span> <strong>₺33.50</strong></div>
+                <div class="market-item"><span>EUR / TRY</span> <strong>₺36.80</strong></div>
             </div>
 
-            <!-- 9. Hızlı Not Defteri -->
+            <!-- 9. Not Defteri -->
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
-                <textarea id="noteInput" placeholder="Aklına gelenleri buraya karala (otomatik kaydedilir)..." oninput="saveNote()"></textarea>
+                <textarea id="noteInput" placeholder="Notlarını buraya yaz..." oninput="saveNote()"></textarea>
             </div>
 
-            <!-- 10. Spotify Oynatıcı Kartı -->
+            <!-- 10. Spotify Oynatıcı -->
             <div class="card glass-card text-center">
                 <h3><i class="fa-brands fa-spotify" style="color:#1db954;"></i> Spotify Medya</h3>
-                <p style="font-size: 12px; opacity: 0.8; margin-top: 8px;">Cihazındaki Spotify'da en son çaldığın parçaya devam et:</p>
+                <p style="font-size: 12px; opacity: 0.8; margin-top: 8px;">Son müziğine hemen devam et:</p>
                 <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="spotify-launch-btn">
-                    <i class="fa-solid fa-circle-play"></i> Spotify'da Dinle
+                    <i class="fa-solid fa-circle-play"></i> Spotify'ı Aç
                 </a>
             </div>
 
-            <!-- 11. CANLI SKOR KARTI (CANLI VERİ APİ İLE ÇEKİLİR) -->
+            <!-- 11. Canlı Skorlar -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Canlı Skorlar (Canlı)</h3>
+                <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Canlı Skorlar</h3>
                 <div id="live-scores-container" class="score-list">
-                    <div style="opacity: 0.6; font-size: 13px;">Canlı maç verileri yükleniyor...</div>
+                    <div style="font-size:12px; opacity:0.7;">Canlı maçlar çekiliyor...</div>
                 </div>
             </div>
 
