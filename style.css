@@ -1,111 +1,149 @@
-/* --- GENEL SIFIRLAMA VE TEMEL TEMA --- */
+/* --- SIFIRLAMA VE TEMEL TEMA --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+    background: #090d16;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%);
     background-attachment: fixed;
-    color: #f8fafc;
-    padding: 20px;
+    color: #f1f5f9;
+    padding: 24px;
     display: flex;
     justify-content: center;
+    transition: background 0.5s ease;
 }
 
 .dashboard-container {
     width: 100%;
-    max-width: 1300px;
+    max-width: 1350px;
 }
 
-/* --- TEMA SEÇİCİ --- */
+/* --- TOP HEADER --- */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    font-size: 22px;
+    color: #a855f7;
+}
+
+.brand h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand h2 span {
+    color: #a855f7;
+}
+
 .theme-picker {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
 }
 
 .theme-dot {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     cursor: pointer;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    transition: transform 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s, border-color 0.2s;
 }
 
-.theme-dot:hover { transform: scale(1.2); }
-.theme-dot.purple { background: #8b5cf6; }
-.theme-dot.green { background: #10b981; }
-.theme-dot.red { background: #f43f5e; }
+.theme-dot:hover { transform: scale(1.25); border-color: #fff; }
+.theme-dot.violet { background: #8b5cf6; }
+.theme-dot.emerald { background: #10b981; }
+.theme-dot.ocean { background: #0284c7; }
 
-/* --- GRID YAPISI --- */
+/* --- GRID LAYOUT --- */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
 }
 
-/* --- CAM (GLASSMORPHISM) KART TASARIMI --- */
+/* --- GLASSMORPHISM CARD STYLES --- */
 .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(18, 24, 38, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 22px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.37);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: border-color 0.3s ease, transform 0.2s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 .glass-card h3 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 15px;
-    color: #38bdf8;
+    color: #e2e8f0;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* --- 1. SAAT VE ARAMA KARTI --- */
-.clock-card #clock {
+/* RENK VURGULARI */
+.text-orange { color: #f97316; }
+.text-cyan { color: #06b6d4; }
+.text-purple { color: #a855f7; }
+.text-yellow { color: #eab308; }
+.text-pink { color: #ec4899; }
+.text-emerald { color: #10b981; }
+.text-green { color: #22c55e; }
+
+/* --- 1. CLOCK & SEARCH --- */
+.clock-display {
     font-size: 42px;
     font-weight: 800;
     letter-spacing: -1px;
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-.clock-card #greeting {
+.greeting-text {
     font-size: 18px;
     font-weight: 600;
-    margin-top: 4px;
     color: #cbd5e1;
+    margin-top: 2px;
 }
 
-.clock-card #date {
+.date-text {
     font-size: 13px;
-    color: #94a3b8;
-    margin-bottom: 15px;
+    color: #64748b;
+    margin-bottom: 16px;
 }
 
 .search-box {
     position: relative;
     width: 100%;
-    margin-top: 10px;
 }
 
 .search-box i {
@@ -113,241 +151,253 @@ body {
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: #94a3b8;
+    color: #64748b;
 }
 
 .search-box input {
     width: 100%;
-    padding: 12px 14px 12px 40px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 12px 14px 12px 42px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    color: white;
+    color: #fff;
     outline: none;
     font-size: 14px;
-    transition: 0.2s;
+    transition: border-color 0.2s;
 }
 
 .search-box input:focus {
-    border-color: #38bdf8;
-    background: rgba(0, 0, 0, 0.5);
+    border-color: #a855f7;
 }
 
-/* --- 2. YAPILACAKLAR (TODO) --- */
-.todo-input-box {
+/* --- 2. HABIT TRACKER --- */
+.habit-list {
     display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.todo-input-box input {
-    flex: 1;
-    padding: 10px 12px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    color: white;
-    outline: none;
-}
-
-.todo-input-box button {
-    background: #38bdf8;
-    border: none;
-    color: #0f172a;
-    padding: 10px 14px;
+.habit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
     border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
+    transition: background 0.2s;
 }
 
-.todo-input-box button:hover { background: #7dd3fc; }
+.habit-item:hover { background: rgba(255, 255, 255, 0.07); }
+.habit-item input { accent-color: #f97316; cursor: pointer; }
 
-/* --- 3. POMODORO ZAMANLAYICI --- */
+.progress-bar-container {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #f97316, #eab308);
+    transition: width 0.3s ease;
+}
+
+/* --- 3. POMODORO --- */
 .timer-display {
-    font-size: 36px;
+    font-size: 40px;
     font-weight: 700;
-    text-align: center;
+    color: #06b6d4;
     margin: 10px 0;
-    color: #f43f5e;
 }
 
-.timer-controls {
+.btn-group {
     display: flex;
     gap: 10px;
 }
 
-.timer-controls button {
+.btn {
     flex: 1;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     border-radius: 10px;
-    color: white;
-    cursor: pointer;
     font-weight: 600;
-    transition: 0.2s;
+    font-size: 13px;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
 
-.timer-controls button:hover { background: rgba(255, 255, 255, 0.2); }
+.btn-primary { background: #06b6d4; color: #090d16; }
+.btn-secondary { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.btn:hover { opacity: 0.85; }
 
-/* --- 4. HIZLI ERİŞİM LİNKLERİ --- */
-.quick-links {
+/* --- 4. QUICK LINKS --- */
+.quick-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
-.quick-links a {
+.quick-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    color: #f8fafc;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    color: #f1f5f9;
     text-decoration: none;
     font-size: 13px;
-    font-weight: 500;
-    transition: 0.2s;
+    transition: background 0.2s, transform 0.2s;
 }
 
-.quick-links a:hover {
-    background: rgba(255, 255, 255, 0.18);
+.quick-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
 
 /* --- 5. HAVA DURUMU --- */
-.weather-box {
+.weather-content {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
-.weather-icon {
-    font-size: 36px;
-    color: #f59e0b;
+.weather-main-icon {
+    font-size: 38px;
+    color: #eab308;
 }
 
-.temp { font-size: 28px; font-weight: 700; }
-.location { font-size: 13px; color: #94a3b8; }
+.temp-text {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.weather-sub {
+    font-size: 12px;
+    color: #94a3b8;
+}
 
 /* --- 6. ODAK SESLERİ --- */
-.sound-buttons {
+.sound-grid {
     display: flex;
     gap: 10px;
 }
 
-.sound-buttons button {
+.sound-btn {
     flex: 1;
     padding: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
-    color: white;
+    color: #fff;
     cursor: pointer;
     font-size: 13px;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: 0.2s;
+    transition: background 0.2s;
 }
 
-.sound-buttons button:hover { background: rgba(255, 255, 255, 0.18); }
+.sound-btn:hover { background: rgba(255, 255, 255, 0.12); }
 
-/* --- 7. GÜNÜN SÖZÜ --- */
-.quote-text {
+/* --- 7. QUOTE --- */
+.quote-body {
     font-style: italic;
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #cbd5e1;
 }
 
 .quote-author {
-    display: block;
-    text-align: right;
     font-size: 12px;
-    color: #38bdf8;
+    color: #06b6d4;
+    text-align: right;
     margin-top: 8px;
+    font-weight: 600;
 }
 
-/* --- 8. PİYASALAR --- */
-.market-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin-bottom: 8px;
-    font-size: 13px;
-}
-
-.market-item strong { color: #10b981; }
-
-/* --- 9. HIZLI NOT DEFTERİ --- */
-#noteInput {
-    width: 100%;
-    height: 90px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    padding: 10px;
-    color: white;
-    outline: none;
-    resize: none;
-    font-size: 13px;
-}
-
-#noteInput:focus { border-color: #38bdf8; }
-
-/* --- 10. SPOTİFY VE CANLI SKOR ŞIK BUTONLARI --- */
-.spotify-launch-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #1db954;
-    color: white !important;
-    padding: 12px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
-    transition: 0.2s;
-}
-
-.spotify-launch-btn:hover {
-    background: #1ed760;
-    transform: translateY(-2px);
-}
-
-.score-list {
+/* --- 8. MARKETS & CRYPTO --- */
+.market-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.score-item {
+.market-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.25);
     padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     font-size: 13px;
 }
 
-.badge {
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 11px;
+.val-green { color: #10b981; }
+.val-gold { color: #f59e0b; }
+
+/* --- 9. TODO --- */
+.input-inline {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
-.badge.green { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.input-inline input {
+    flex: 1;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    font-size: 13px;
+}
+
+.todo-ul {
+    list-style: none;
+    max-height: 140px;
+    overflow-y: auto;
+}
+
+/* --- 10. NOT DEFTERİ --- */
+#noteInput {
+    width: 100%;
+    height: 90px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    color: #fff;
+    outline: none;
+    resize: none;
+    font-size: 13px;
+}
+
+#noteInput:focus { border-color: #eab308; }
+
+/* --- 11. SPOTIFY --- */
+.spotify-desc { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+.spotify-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #22c55e;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 12px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.spotify-btn:hover { background: #16a34a; transform: translateY(-2px); }
