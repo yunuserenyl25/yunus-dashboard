@@ -1,11 +1,25 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
+  "name": "King Board Dashboard",
+  "short_name": "KingBoard",
+  "description": "Yunus Panel Dijital Asistan ve Dashboard Uygulaması",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "name": "yunuserenyl25.github",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "yunuserenyl25.github",
-  "start_url": "/",
-  "theme_color": "#ffffff"
+  "background_color": "#090d16",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/861/861059.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/861/861059.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
