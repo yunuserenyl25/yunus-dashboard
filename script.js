@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. SAAT VE TARİH ---
+    // --- 1. SAAT VE TARİH DİNAMİĞİ ---
     function updateClock() {
         const clockEl = document.getElementById('clock');
         const greetingEl = document.getElementById('greeting');
@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (greetingEl) {
             const h = now.getHours();
-            if (h < 12) greetingEl.textContent = "İyi Sabahlar!";
-            else if (h < 18) greetingEl.textContent = "İyi Günler!";
-            else greetingEl.textContent = "İyi Akşamlar!";
+            if (h < 6) greetingEl.textContent = "İyi Geceler!";
+            else if (h < 12) greetingEl.textContent = "Günaydın, Harika Bir Gün Olsun!";
+            else if (h < 18) greetingEl.textContent = "İyi Günler, Çalışmaya Devam!";
+            else greetingEl.textContent = "İyi Akşamlar, Dinlenme Zamanı!";
         }
 
         if (dateEl) {
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // --- 2. GOOGLE ARAMA ---
+    // --- 2. DİNAMİK ARAMA ÇUBUĞU ---
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('keypress', (e) => {
@@ -43,58 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 3. YAPILACAKLAR (TODO) ---
-    let todos = JSON.parse(localStorage.getItem('yunus_todos')) || [];
-    const todoInput = document.getElementById('todoInput');
-    const addTodoBtn = document.getElementById('addTodoBtn');
-    const todoList = document.getElementById('todoList');
+    // --- 3. ALIŞKANLIK & VERİMLİLİK TAKİBİ ---
+    const habits = document.querySelectorAll('.habit-item input');
+    const habitProgress = document.getElementById('habitProgress');
 
-    function renderTodos() {
-        if (!todoList) return;
-        todoList.innerHTML = '';
-        todos.forEach((todo, index) => {
-            const li = document.createElement('li');
-            li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:13px; background:rgba(0,0,0,0.2); padding:6px 10px; border-radius:6px;";
-            
-            const span = document.createElement('span');
-            span.textContent = todo.text;
-            span.style.cursor = 'pointer';
-            if (todo.completed) {
-                span.style.textDecoration = 'line-through';
-                span.style.opacity = '0.5';
+    function updateHabitProgress() {
+        if (!habits.length || !habitProgress) return;
+        let checkedCount = 0;
+        habits.forEach((checkbox, index) => {
+            const savedState = localStorage.getItem(`habit_${index}`);
+            if (savedState === 'true') {
+                checkbox.checked = true;
             }
-            span.addEventListener('click', () => {
-                todos[index].completed = !todos[index].completed;
-                localStorage.setItem('yunus_todos', JSON.stringify(todos));
-                renderTodos();
-            });
-
-            const delIcon = document.createElement('i');
-            delIcon.className = 'fa-solid fa-trash';
-            delIcon.style.cssText = 'color:#f43f5e; cursor:pointer;';
-            delIcon.addEventListener('click', () => {
-                todos.splice(index, 1);
-                localStorage.setItem('yunus_todos', JSON.stringify(todos));
-                renderTodos();
-            });
-
-            li.appendChild(span);
-            li.appendChild(delIcon);
-            todoList.appendChild(li);
+            if (checkbox.checked) checkedCount++;
         });
+
+        const percentage = (checkedCount / habits.length) * 100;
+        habitProgress.style.width = `${percentage}%`;
     }
 
-    if (addTodoBtn && todoInput) {
-        addTodoBtn.addEventListener('click', () => {
-            if (todoInput.value.trim() !== '') {
-                todos.push({ text: todoInput.value.trim(), completed: false });
-                localStorage.setItem('yunus_todos', JSON.stringify(todos));
-                todoInput.value = '';
-                renderTodos();
-            }
+    habits.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', () => {
+            localStorage.setItem(`habit_${index}`, checkbox.checked);
+            updateHabitProgress();
         });
-    }
-    renderTodos();
+    });
+    updateHabitProgress();
 
     // --- 4. POMODORO ZAMANLAYICI ---
     let timerInterval = null;
@@ -115,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     clearInterval(timerInterval);
                     timerInterval = null;
-                    alert('Süre bitti!');
+                    alert('Odaklanma süreniz doldu, tebrikler!');
                 }
             }, 1000);
         });
@@ -158,67 +133,82 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. NOT DEFTERİ ---
-    const noteInput = document.getElementById('noteInput');
-    if (noteInput) {
-        const savedNote = localStorage.getItem('yunus_note');
-        if (savedNote) noteInput.value = savedNote;
+    // --- 6. YAPILACAKLAR (TODO) ---
+    let todos = JSON.parse(localStorage.getItem('yunus_todos_v2')) || [];
+    const todoInput = document.getElementById('todoInput');
+    const addTodoBtn = document.getElementById('addTodoBtn');
+    const todoList = document.getElementById('todoList');
 
-        noteInput.addEventListener('input', () => {
-            localStorage.setItem('yunus_note', noteInput.value);
+    function renderTodos() {
+        if (!todoList) return;
+        todoList.innerHTML = '';
+        todos.forEach((todo, index) => {
+            const li = document.createElement('li');
+            li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:13px; background:rgba(255,255,255,0.04); padding:8px 10px; border-radius:8px;";
+            
+            const span = document.createElement('span');
+            span.textContent = todo.text;
+            span.style.cursor = 'pointer';
+            if (todo.completed) {
+                span.style.textDecoration = 'line-through';
+                span.style.opacity = '0.5';
+            }
+            span.addEventListener('click', () => {
+                todos[index].completed = !todos[index].completed;
+                localStorage.setItem('yunus_todos_v2', JSON.stringify(todos));
+                renderTodos();
+            });
+
+            const delIcon = document.createElement('i');
+            delIcon.className = 'fa-solid fa-trash';
+            delIcon.style.cssText = 'color:#f43f5e; cursor:pointer; font-size:12px;';
+            delIcon.addEventListener('click', () => {
+                todos.splice(index, 1);
+                localStorage.setItem('yunus_todos_v2', JSON.stringify(todos));
+                renderTodos();
+            });
+
+            li.appendChild(span);
+            li.appendChild(delIcon);
+            todoList.appendChild(li);
         });
     }
 
-    // --- 7. TEMA SEÇİCİ ---
-    const themePurple = document.getElementById('themePurple');
-    const themeGreen = document.getElementById('themeGreen');
-    const themeRed = document.getElementById('themeRed');
-
-    if (themePurple) themePurple.addEventListener('click', () => {
-        document.body.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%)';
-    });
-    if (themeGreen) themeGreen.addEventListener('click', () => {
-        document.body.style.background = 'linear-gradient(135deg, #064e3b 0%, #022c22 50%, #0f172a 100%)';
-    });
-    if (themeRed) themeRed.addEventListener('click', () => {
-        document.body.style.background = 'linear-gradient(135deg, #881337 0%, #4c0519 50%, #0f172a 100%)';
-    });
-
-    // --- 8. GERÇEK CANLI SKOR APİ ---
-    async function fetchLiveScores() {
-        const container = document.getElementById('live-scores-container');
-        if (!container) return;
-
-        try {
-            const response = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard');
-            const data = await response.json();
-
-            if (data && data.events && data.events.length > 0) {
-                container.innerHTML = '';
-                const matches = data.events.slice(0, 4);
-                matches.forEach(event => {
-                    const homeTeam = event.competitions[0].competitors[0].team.shortDisplayName || event.competitions[0].competitors[0].team.name;
-                    const awayTeam = event.competitions[0].competitors[1].team.shortDisplayName || event.competitions[0].competitors[1].name;
-                    const homeScore = event.competitions[0].competitors[0].score || '0';
-                    const awayScore = event.competitions[0].competitors[1].score || '0';
-                    const status = event.status.type.shortDetail || 'Canlı';
-
-                    const matchElement = document.createElement('div');
-                    matchElement.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.2); padding:6px 10px; border-radius:6px; margin-top:6px; font-size:12px;";
-                    matchElement.innerHTML = `
-                        <span>${homeTeam} - ${awayTeam}</span>
-                        <strong style="color:#10b981;">${homeScore} - ${awayScore} <small style="color:#38bdf8;">(${status})</small></strong>
-                    `;
-                    container.appendChild(matchElement);
-                });
-            } else {
-                container.innerHTML = '<div style="font-size:12px; opacity:0.7;">Şu an canlı maç bulunamadı.</div>';
+    if (addTodoBtn && todoInput) {
+        addTodoBtn.addEventListener('click', () => {
+            if (todoInput.value.trim() !== '') {
+                todos.push({ text: todoInput.value.trim(), completed: false });
+                localStorage.setItem('yunus_todos_v2', JSON.stringify(todos));
+                todoInput.value = '';
+                renderTodos();
             }
-        } catch (e) {
-            container.innerHTML = '<div style="font-size:12px; color:#f43f5e;">Canlı veri sunucusuna erişilemedi.</div>';
-        }
+        });
+    }
+    renderTodos();
+
+    // --- 7. AKILLI NOT DEFTERİ ---
+    const noteInput = document.getElementById('noteInput');
+    if (noteInput) {
+        const savedNote = localStorage.getItem('yunus_note_v2');
+        if (savedNote) noteInput.value = savedNote;
+
+        noteInput.addEventListener('input', () => {
+            localStorage.setItem('yunus_note_v2', noteInput.value);
+        });
     }
 
-    fetchLiveScores();
-    setInterval(fetchLiveScores, 60000);
+    // --- 8. CANLI TEMA DEĞİŞTİRİCİ ---
+    const themeViolet = document.getElementById('themeViolet');
+    const themeEmerald = document.getElementById('themeEmerald');
+    const themeOcean = document.getElementById('themeOcean');
+
+    if (themeViolet) themeViolet.addEventListener('click', () => {
+        document.body.style.background = '#090d16';
+    });
+    if (themeEmerald) themeEmerald.addEventListener('click', () => {
+        document.body.style.background = '#041d1a';
+    });
+    if (themeOcean) themeOcean.addEventListener('click', () => {
+        document.body.style.background = '#061727';
+    });
 });
