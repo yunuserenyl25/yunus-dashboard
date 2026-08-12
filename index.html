@@ -3,120 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yunus Dashboard</title>
+    <title>Yunus Pro Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Tema Seçici -->
-        <div class="theme-picker">
-            <span class="theme-dot purple" id="themePurple"></span>
-            <span class="theme-dot green" id="themeGreen"></span>
-            <span class="theme-dot red" id="themeRed"></span>
-        </div>
+        
+        <!-- ÜST BAŞLIK VE TEMA SEÇİCİ -->
+        <header class="top-header">
+            <div class="brand">
+                <i class="fa-solid fa-bolt brand-icon"></i>
+                <h2>YUNUS<span>PANEL</span></h2>
+            </div>
+            <div class="theme-picker">
+                <span class="theme-dot violet" id="themeViolet" title="Siber Mor"></span>
+                <span class="theme-dot emerald" id="themeEmerald" title="Zümrüt Yeşil"></span>
+                <span class="theme-dot ocean" id="themeOcean" title="Okyanus Mavi"></span>
+            </div>
+        </header>
 
-        <!-- Grid Yapısı -->
+        <!-- MAIN GRID CONTAINER -->
         <div class="grid-container">
             
-            <!-- 1. Saat Kartı -->
+            <!-- 1. SAAT VE DİNAMİK ARAMA -->
             <div class="card glass-card clock-card">
-                <div id="clock">00:00:00</div>
-                <div id="greeting">İyi Günler!</div>
-                <div id="date">--</div>
+                <div class="clock-display" id="clock">00:00:00</div>
+                <div class="greeting-text" id="greeting">Hoş geldin!</div>
+                <div class="date-text" id="date">--</div>
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Google'da ara...">
+                    <input type="text" id="searchInput" placeholder="Web'de veya Google'da ara...">
                 </div>
             </div>
 
-            <!-- 2. Yapılacaklar -->
+            <!-- 2. GÜNLÜK ALIŞKANLIK & VERİMLİLİK TAKİBİ (YENİ DETAY!) -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-list-check"></i> Yapılacaklar</h3>
-                <div class="todo-input-box">
-                    <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
-                    <button id="addTodoBtn"><i class="fa-solid fa-plus"></i></button>
+                <h3><i class="fa-solid fa-fire text-orange"></i> Günlük Alışkanlıklar</h3>
+                <div class="habit-list" id="habitList">
+                    <label class="habit-item"><input type="checkbox" id="h1"> <span>Su İç (2 Litre)</span></label>
+                    <label class="habit-item"><input type="checkbox" id="h2"> <span>Kod / Proje Geliştirme</span></label>
+                    <label class="habit-item"><input type="checkbox" id="h3"> <span>Egzersiz / Spor</span></label>
+                    <label class="habit-item"><input type="checkbox" id="h4"> <span>Kitap / Makale Oku</span></label>
                 </div>
-                <ul id="todoList" style="list-style:none; padding:0;"></ul>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="habitProgress"></div>
+                </div>
             </div>
 
-            <!-- 3. Odak Zamanlayıcı -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-stopwatch"></i> Odak Zamanlayıcı</h3>
+            <!-- 3. ODAK ZAMANLAYICI (POMODORO) -->
+            <div class="card glass-card text-center">
+                <h3><i class="fa-solid fa-stopwatch text-cyan"></i> Odak Zamanlayıcı</h3>
                 <div class="timer-display" id="timerDisplay">25:00</div>
-                <div class="timer-controls">
-                    <button id="startTimerBtn"><i class="fa-solid fa-play"></i> Başlat</button>
-                    <button id="resetTimerBtn"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
+                <div class="btn-group">
+                    <button id="startTimerBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Başlat</button>
+                    <button id="resetTimerBtn" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
                 </div>
             </div>
 
-            <!-- 4. Hızlı Erişim -->
+            <!-- 4. HIZLI ERİŞİM MERKEZİ -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-compass"></i> Hızlı Erişim</h3>
-                <div class="quick-links">
-                    <a href="https://google.com" target="_blank"><i class="fa-brands fa-google"></i> Google</a>
-                    <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                    <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-                    <a href="https://open.spotify.com" target="_blank"><i class="fa-brands fa-spotify"></i> Spotify</a>
+                <h3><i class="fa-solid fa-compass text-purple"></i> Hızlı Erişim</h3>
+                <div class="quick-grid">
+                    <a href="https://google.com" target="_blank" class="quick-btn"><i class="fa-brands fa-google"></i> Google</a>
+                    <a href="https://youtube.com" target="_blank" class="quick-btn"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com" target="_blank" class="quick-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+                    <a href="https://codepen.io" target="_blank" class="quick-btn"><i class="fa-brands fa-codepen"></i> CodePen</a>
                 </div>
             </div>
 
-            <!-- 5. Hava Durumu -->
+            <!-- 5. HAVA DURUMU -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-cloud-sun"></i> Hava Durumu</h3>
-                <div class="weather-box">
-                    <i class="fa-solid fa-sun weather-icon"></i>
+                <h3><i class="fa-solid fa-cloud-sun text-yellow"></i> Erzurum Hava Durumu</h3>
+                <div class="weather-content">
+                    <i class="fa-solid fa-sun weather-main-icon"></i>
                     <div>
-                        <div class="temp">16°C</div>
-                        <div class="location">Erzurum</div>
+                        <div class="temp-text">16°C</div>
+                        <div class="weather-sub">Açık, Ferah Havanın Tadını Çıkar</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 6. Odak Sesleri -->
+            <!-- 6. AMBİYANS VE ODAK SESLERİ -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
-                <div class="sound-buttons">
-                    <button id="rainBtn"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
-                    <button id="lofiBtn"><i class="fa-solid fa-music"></i> Lofi</button>
+                <h3><i class="fa-solid fa-headphones text-pink"></i> Odak & Ambiyans</h3>
+                <div class="sound-grid">
+                    <button id="rainBtn" class="sound-btn"><i class="fa-solid fa-cloud-showers-heavy"></i> Yağmur Sesi</button>
+                    <button id="lofiBtn" class="sound-btn"><i class="fa-solid fa-music"></i> Lofi Ritimleri</button>
                 </div>
             </div>
 
-            <!-- 7. Günün Sözü -->
+            <!-- 7. GÜNÜN MOTİVASYON KARTI -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-quote-left"></i> Günün Sözü</h3>
-                <p class="quote-text">"Disiplin, hedefler ile başarı arasındaki köprüdür."</p>
-                <span class="quote-author">- Jim Rohn</span>
+                <h3><i class="fa-solid fa-quote-left text-cyan"></i> Günün İlhamı</h3>
+                <blockquote class="quote-body">"Büyük işler birdenbire yapılmaz, küçük şeylerin bir araya getirilmesiyle oluşur."</blockquote>
+                <div class="quote-author">- Vincent van Gogh</div>
             </div>
 
-            <!-- 8. Piyasalar -->
+            <!-- 8. CANLI PİYASA & KRİPTO (YENİ DETAY!) -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-chart-line"></i> Piyasalar</h3>
-                <div class="market-item"><span>USD / TRY</span> <strong>₺33.50</strong></div>
-                <div class="market-item"><span>EUR / TRY</span> <strong>₺36.80</strong></div>
+                <h3><i class="fa-solid fa-chart-line text-emerald"></i> Piyasalar & Kripto</h3>
+                <div class="market-list">
+                    <div class="market-row"><span>USD / TRY</span> <strong class="val-green">₺33.50</strong></div>
+                    <div class="market-row"><span>EUR / TRY</span> <strong class="val-green">₺36.80</strong></div>
+                    <div class="market-row"><span>Bitcoin (BTC)</span> <strong class="val-gold">$61,200</strong></div>
+                    <div class="market-row"><span>Ethereum (ETH)</span> <strong class="val-gold">$2,650</strong></div>
+                </div>
             </div>
 
-            <!-- 9. Not Defteri -->
+            <!-- 9. YAPILACAKLAR LİSTESİ -->
             <div class="card glass-card">
-                <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
-                <textarea id="noteInput" placeholder="Notlarını buraya yaz..."></textarea>
+                <h3><i class="fa-solid fa-square-check text-purple"></i> Görev Göstergesi</h3>
+                <div class="input-inline">
+                    <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
+                    <button id="addTodoBtn" class="btn btn-primary">+</button>
+                </div>
+                <ul id="todoList" class="todo-ul"></ul>
             </div>
 
-            <!-- 10. Spotify Oynatıcı -->
-            <div class="card glass-card text-center">
-                <h3><i class="fa-brands fa-spotify" style="color:#1db954;"></i> Spotify Medya</h3>
-                <p style="font-size: 12px; opacity: 0.8; margin-top: 8px;">Son müziğine hemen devam et:</p>
-                <a href="https://open.spotify.com" target="_blank" class="spotify-launch-btn">
-                    <i class="fa-solid fa-circle-play"></i> Spotify'ı Aç
+            <!-- 10. HIZLI NOT DEFTERİ -->
+            <div class="card glass-card">
+                <h3><i class="fa-solid fa-note-sticky text-yellow"></i> Akıllı Notlar</h3>
+                <textarea id="noteInput" placeholder="Aklına gelen fikirleri buraya karala (otomatik kaydolur)..."></textarea>
+            </div>
+
+            <!-- 11. SPOTIFY HIZLI BAĞLANTI -->
+            <div class="card glass-card spotify-card text-center">
+                <h3><i class="fa-brands fa-spotify text-green"></i> Spotify Müzik</h3>
+                <p class="spotify-desc">Çalma listeni veya favori rap parçalarını başlat:</p>
+                <a href="https://open.spotify.com" target="_blank" class="spotify-btn">
+                    <i class="fa-solid fa-play"></i> Spotify'a Git
                 </a>
-            </div>
-
-            <!-- 11. Canlı Skorlar -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Canlı Skorlar</h3>
-                <div id="live-scores-container" class="score-list">
-                    <div style="font-size:12px; opacity:0.7;">Canlı maçlar yükleniyor...</div>
-                </div>
             </div>
 
         </div>
