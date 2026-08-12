@@ -212,3 +212,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.background = '#061727';
     });
 });
+// 5. ODAK SESLERİ (GÜNCELLENMİŞ ÇALIŞAN SES LİNKLERİ)
+const audioMap = {};
+
+function playAudio(type) {
+    // Ses kaynakları (Doğrudan çalışan canlı akışlar)
+    const soundSources = {
+        rain: 'https://stream.zeno.fm/5f381y6u4z8uv', // Kesintisiz Doğal Yağmur Sesi
+        lofi: 'https://stream.zeno.fm/f3wvbbqmdg8uv'  // 7/24 Lofi Chill Beats Radyosu
+    };
+
+    if (!audioMap[type]) {
+        audioMap[type] = new Audio(soundSources[type]);
+        audioMap[type].loop = true;
+    }
+
+    // Diğer çalan sesi durdur (ikisi üst üste binmesin)
+    Object.keys(audioMap).forEach(key => {
+        if (key !== type && audioMap[key]) {
+            audioMap[key].pause();
+        }
+    });
+
+    // Tıklanan sesi başlat veya durdur
+    if (audioMap[type].paused) {
+        audioMap[type].play().catch(err => {
+            console.log("Ses oynatma engellendi, sayfaya tıklayıp tekrar deneyin:", err);
+        });
+    } else {
+        audioMap[type].pause();
+    }
+}
