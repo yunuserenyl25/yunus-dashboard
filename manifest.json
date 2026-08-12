@@ -1,12 +1,11 @@
 {
-  "background_color": "#090d16",
+  "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "King-Board",
+  "name": "yunuserenyl25.github",
   "orientation": "any",
   "scope": "/",
   "short_name": "yunuserenyl25.github",
   "start_url": "/",
-  "theme_color": "#090d16",
-  "id": "kingboard"
+  "theme_color": "#ffffff"
 }
