@@ -11,9 +11,9 @@
     <div class="dashboard-container">
         <!-- Tema Seçici -->
         <div class="theme-picker">
-            <span class="theme-dot purple" onclick="setTheme('purple')"></span>
-            <span class="theme-dot green" onclick="setTheme('green')"></span>
-            <span class="theme-dot red" onclick="setTheme('red')"></span>
+            <span class="theme-dot purple" id="themePurple"></span>
+            <span class="theme-dot green" id="themeGreen"></span>
+            <span class="theme-dot red" id="themeRed"></span>
         </div>
 
         <!-- Grid Yapısı -->
@@ -26,7 +26,7 @@
                 <div id="date">--</div>
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Google'da ara..." onkeypress="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Google'da ara...">
                 </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <h3><i class="fa-solid fa-list-check"></i> Yapılacaklar</h3>
                 <div class="todo-input-box">
                     <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
-                    <button onclick="addTodo()"><i class="fa-solid fa-plus"></i></button>
+                    <button id="addTodoBtn"><i class="fa-solid fa-plus"></i></button>
                 </div>
                 <ul id="todoList" style="list-style:none; padding:0;"></ul>
             </div>
@@ -45,8 +45,8 @@
                 <h3><i class="fa-solid fa-stopwatch"></i> Odak Zamanlayıcı</h3>
                 <div class="timer-display" id="timerDisplay">25:00</div>
                 <div class="timer-controls">
-                    <button onclick="startTimer()"><i class="fa-solid fa-play"></i> Başlat</button>
-                    <button onclick="resetTimer()"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
+                    <button id="startTimerBtn"><i class="fa-solid fa-play"></i> Başlat</button>
+                    <button id="resetTimerBtn"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
                 </div>
             </div>
 
@@ -77,8 +77,8 @@
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-headphones"></i> Odak Sesleri</h3>
                 <div class="sound-buttons">
-                    <button id="rainBtn" onclick="toggleSound('rain')"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
-                    <button id="lofiBtn" onclick="toggleSound('lofi')"><i class="fa-solid fa-music"></i> Lofi</button>
+                    <button id="rainBtn"><i class="fa-solid fa-cloud-rain"></i> Yağmur</button>
+                    <button id="lofiBtn"><i class="fa-solid fa-music"></i> Lofi</button>
                 </div>
             </div>
 
@@ -99,14 +99,14 @@
             <!-- 9. Not Defteri -->
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-pen-to-square"></i> Hızlı Not Defteri</h3>
-                <textarea id="noteInput" placeholder="Notlarını buraya yaz..." oninput="saveNote()"></textarea>
+                <textarea id="noteInput" placeholder="Notlarını buraya yaz..."></textarea>
             </div>
 
             <!-- 10. Spotify Oynatıcı -->
             <div class="card glass-card text-center">
                 <h3><i class="fa-brands fa-spotify" style="color:#1db954;"></i> Spotify Medya</h3>
                 <p style="font-size: 12px; opacity: 0.8; margin-top: 8px;">Son müziğine hemen devam et:</p>
-                <a href="spotify://" onclick="window.location.href='https://open.spotify.com'; return true;" class="spotify-launch-btn">
+                <a href="https://open.spotify.com" target="_blank" class="spotify-launch-btn">
                     <i class="fa-solid fa-circle-play"></i> Spotify'ı Aç
                 </a>
             </div>
@@ -115,7 +115,7 @@
             <div class="card glass-card">
                 <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Canlı Skorlar</h3>
                 <div id="live-scores-container" class="score-list">
-                    <div style="font-size:12px; opacity:0.7;">Canlı maçlar çekiliyor...</div>
+                    <div style="font-size:12px; opacity:0.7;">Canlı maçlar yükleniyor...</div>
                 </div>
             </div>
 
