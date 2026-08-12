@@ -1,148 +1,115 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#8b5cf6">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yunus Pro Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>King Board Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8b5cf6">
 </head>
 <body>
-    <div class="dashboard-container">
-        
-        <!-- ÜST BAŞLIK VE TEMA SEÇİCİ -->
-        <header class="top-header">
-            <div class="brand">
-                <i class="fa-solid fa-bolt brand-icon"></i>
-                <h2>YUNUS<span>PANEL</span></h2>
-            </div>
-            <div class="theme-picker">
-                <span class="theme-dot violet" id="themeViolet" title="Siber Mor"></span>
-                <span class="theme-dot emerald" id="themeEmerald" title="Zümrüt Yeşil"></span>
-                <span class="theme-dot ocean" id="themeOcean" title="Okyanus Mavi"></span>
-            </div>
-        </header>
 
-        <!-- MAIN GRID CONTAINER -->
-        <div class="grid-container">
-            
-            <!-- 1. SAAT VE DİNAMİK ARAMA -->
-            <div class="card glass-card clock-card">
-                <div class="clock-display" id="clock">00:00:00</div>
-                <div class="greeting-text" id="greeting">Hoş geldin!</div>
-                <div class="date-text" id="date">--</div>
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Web'de veya Google'da ara...">
-                </div>
-            </div>
-
-            <!-- 2. GÜNLÜK ALIŞKANLIK & VERİMLİLİK TAKİBİ (YENİ DETAY!) -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-fire text-orange"></i> Günlük Alışkanlıklar</h3>
-                <div class="habit-list" id="habitList">
-                    <label class="habit-item"><input type="checkbox" id="h1"> <span>Su İç (2 Litre)</span></label>
-                    <label class="habit-item"><input type="checkbox" id="h2"> <span>Kod / Proje Geliştirme</span></label>
-                    <label class="habit-item"><input type="checkbox" id="h3"> <span>Egzersiz / Spor</span></label>
-                    <label class="habit-item"><input type="checkbox" id="h4"> <span>Kitap / Makale Oku</span></label>
-                </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="habitProgress"></div>
-                </div>
-            </div>
-
-            <!-- 3. ODAK ZAMANLAYICI (POMODORO) -->
-            <div class="card glass-card text-center">
-                <h3><i class="fa-solid fa-stopwatch text-cyan"></i> Odak Zamanlayıcı</h3>
-                <div class="timer-display" id="timerDisplay">25:00</div>
-                <div class="btn-group">
-                    <button id="startTimerBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Başlat</button>
-                    <button id="resetTimerBtn" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> Sıfırla</button>
-                </div>
-            </div>
-
-            <!-- 4. HIZLI ERİŞİM MERKEZİ -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-compass text-purple"></i> Hızlı Erişim</h3>
-                <div class="quick-grid">
-                    <a href="https://google.com" target="_blank" class="quick-btn"><i class="fa-brands fa-google"></i> Google</a>
-                    <a href="https://youtube.com" target="_blank" class="quick-btn"><i class="fa-brands fa-youtube"></i> YouTube</a>
-                    <a href="https://github.com" target="_blank" class="quick-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-                    <a href="https://codepen.io" target="_blank" class="quick-btn"><i class="fa-brands fa-codepen"></i> CodePen</a>
-                </div>
-            </div>
-
-            <!-- 5. HAVA DURUMU -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-cloud-sun text-yellow"></i> Erzurum Hava Durumu</h3>
-                <div class="weather-content">
-                    <i class="fa-solid fa-sun weather-main-icon"></i>
-                    <div>
-                        <div class="temp-text">16°C</div>
-                        <div class="weather-sub">Açık, Ferah Havanın Tadını Çıkar</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. AMBİYANS VE ODAK SESLERİ -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-headphones text-pink"></i> Odak & Ambiyans</h3>
-                <div class="sound-grid">
-                    <button id="rainBtn" class="sound-btn"><i class="fa-solid fa-cloud-showers-heavy"></i> Yağmur Sesi</button>
-                    <button id="lofiBtn" class="sound-btn"><i class="fa-solid fa-music"></i> Lofi Ritimleri</button>
-                </div>
-            </div>
-
-            <!-- 7. GÜNÜN MOTİVASYON KARTI -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-quote-left text-cyan"></i> Günün İlhamı</h3>
-                <blockquote class="quote-body">"Büyük işler birdenbire yapılmaz, küçük şeylerin bir araya getirilmesiyle oluşur."</blockquote>
-                <div class="quote-author">- Vincent van Gogh</div>
-            </div>
-
-            <!-- 8. CANLI PİYASA & KRİPTO (YENİ DETAY!) -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-chart-line text-emerald"></i> Piyasalar & Kripto</h3>
-                <div class="market-list">
-                    <div class="market-row"><span>USD / TRY</span> <strong class="val-green">₺33.50</strong></div>
-                    <div class="market-row"><span>EUR / TRY</span> <strong class="val-green">₺36.80</strong></div>
-                    <div class="market-row"><span>Bitcoin (BTC)</span> <strong class="val-gold">$61,200</strong></div>
-                    <div class="market-row"><span>Ethereum (ETH)</span> <strong class="val-gold">$2,650</strong></div>
-                </div>
-            </div>
-
-            <!-- 9. YAPILACAKLAR LİSTESİ -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-square-check text-purple"></i> Görev Göstergesi</h3>
-                <div class="input-inline">
-                    <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
-                    <button id="addTodoBtn" class="btn btn-primary">+</button>
-                </div>
-                <ul id="todoList" class="todo-ul"></ul>
-            </div>
-
-            <!-- 10. HIZLI NOT DEFTERİ -->
-            <div class="card glass-card">
-                <h3><i class="fa-solid fa-note-sticky text-yellow"></i> Akıllı Notlar</h3>
-                <textarea id="noteInput" placeholder="Aklına gelen fikirleri buraya karala (otomatik kaydolur)..."></textarea>
-            </div>
-
-            <!-- 11. SPOTIFY HIZLI BAĞLANTI -->
-            <div class="card glass-card spotify-card text-center">
-                <h3><i class="fa-brands fa-spotify text-green"></i> Spotify Müzik</h3>
-                <p class="spotify-desc">Çalma listeni veya favori rap parçalarını başlat:</p>
-                <a href="https://open.spotify.com" target="_blank" class="spotify-btn">
-                    <i class="fa-solid fa-play"></i> Spotify'a Git
-                </a>
-            </div>
-
-        </div>
+  <!-- Üst Bar / Header -->
+  <header class="top-bar glass-card">
+    <div class="brand">
+      <h1 id="welcome-text">Hoş geldin, Kral!</h1>
+      <span class="subtitle">Studio Edition V2</span>
     </div>
+    <button id="open-settings-btn" class="icon-btn">⚙️ Stüdyo Ayarları</button>
+  </header>
 
-    <script src="script.js"></script>
+  <!-- Ana Panel (Sürüklenip Sıralanabilir Kartlar Container'ı) -->
+  <main class="dashboard-grid" id="dashboard-grid">
+
+    <!-- Kart 1: Sound Mixer (Ses Stüdyosu) -->
+    <section class="glass-card draggable-card" draggable="true" id="card-sound-mixer">
+      <div class="card-header">
+        <h3>🎧 Ambient Sound Mixer</h3>
+        <span class="drag-handle">⋮⋮</span>
+      </div>
+      <div class="card-body">
+        <div class="mixer-track">
+          <label>🌧️ Yağmur Sesi</label>
+          <input type="range" class="sound-slider" data-sound="rain" min="0" max="1" step="0.01" value="0">
+        </div>
+        <div class="mixer-track">
+          <label>☕ Cafe Ambiyansı</label>
+          <input type="range" class="sound-slider" data-sound="cafe" min="0" max="1" step="0.01" value="0">
+        </div>
+        <div class="mixer-track">
+          <label>🔥 Şömine Ateşi</label>
+          <input type="range" class="sound-slider" data-sound="fire" min="0" max="1" step="0.01" value="0">
+        </div>
+        <button id="toggle-all-audio" class="primary-btn full-btn">Tüm Sesleri Durdur</button>
+      </div>
+    </section>
+
+    <!-- Kart 2: Stüdyo Lirik & Fikir Defteri -->
+    <section class="glass-card draggable-card" draggable="true" id="card-notes">
+      <div class="card-header">
+        <h3>📝 Studio Notes & Lyric Book</h3>
+        <span class="drag-handle">⋮⋮</span>
+      </div>
+      <div class="card-body">
+        <textarea id="studio-notes" placeholder="Aklına gelen rap liriklerini, proje fikirlerini buraya yaz..."></textarea>
+        <button id="save-notes-btn" class="primary-btn full-btn">Hafızaya Kaydet</button>
+      </div>
+    </section>
+
+    <!-- Kart 3: Hızlı Odaklanma Kronometresi -->
+    <section class="glass-card draggable-card" draggable="true" id="card-timer">
+      <div class="card-header">
+        <h3>⏱️ Focus Studio Timer</h3>
+        <span class="drag-handle">⋮⋮</span>
+      </div>
+      <div class="card-body timer-body">
+        <div class="timer-display" id="timer-display">25:00</div>
+        <div class="timer-controls">
+          <button id="start-timer" class="primary-btn">Başlat</button>
+          <button id="pause-timer" class="secondary-btn">Durdur</button>
+          <button id="reset-timer" class="secondary-btn">Sıfırla</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Stüdyo & Profil Ayarları Modalı -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h2>⚙️ Stüdyo & Profil Ayarları</h2>
+        <button id="close-settings" class="icon-btn">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="setting-group">
+          <label for="user-name-input">Kullanıcı / Sahne Adı:</label>
+          <input type="text" id="user-name-input" placeholder="Adını yaz..." class="custom-input">
+        </div>
+
+        <div class="setting-group">
+          <label>Vurgu Rengi (Accent Color):</label>
+          <div class="color-options">
+            <button class="color-btn" data-color="#8b5cf6" style="background: #8b5cf6;"></button>
+            <button class="color-btn" data-color="#06b6d4" style="background: #06b6d4;"></button>
+            <button class="color-btn" data-color="#10b981" style="background: #10b981;"></button>
+            <button class="color-btn" data-color="#f43f5e" style="background: #f43f5e;"></button>
+            <button class="color-btn" data-color="#f59e0b" style="background: #f59e0b;"></button>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label for="blur-range">Cam Şeffaflığı (Blur): <span id="blur-val">12px</span></label>
+          <input type="range" id="blur-range" min="0" max="25" value="12" class="custom-slider">
+        </div>
+      </div>
+
+      <button id="save-settings-btn" class="primary-btn full-btn">Değişiklikleri Kaydet</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
