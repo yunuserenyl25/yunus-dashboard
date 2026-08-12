@@ -3,67 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>King Board Dashboard</title>
+  <title>King Board Studio V3</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#8b5cf6">
 </head>
 <body>
 
-  <!-- Üst Bar / Header -->
+  <!-- Header -->
   <header class="top-bar glass-card">
     <div class="brand">
       <h1 id="welcome-text">Hoş geldin, Kral!</h1>
-      <span class="subtitle">Studio Edition V2</span>
+      <span class="subtitle">King Board • Studio Edition V3 (10 Active Modules)</span>
     </div>
-    <button id="open-settings-btn" class="icon-btn">⚙️ Stüdyo Ayarları</button>
+    <button id="open-settings-btn" class="primary-btn">⚙️ Stüdyo Ayarları</button>
   </header>
 
-  <!-- Ana Panel (Sürüklenip Sıralanabilir Kartlar Container'ı) -->
+  <!-- Main Grid (10 Modül) -->
   <main class="dashboard-grid" id="dashboard-grid">
 
-    <!-- Kart 1: Sound Mixer (Ses Stüdyosu) -->
-    <section class="glass-card draggable-card" draggable="true" id="card-sound-mixer">
-      <div class="card-header">
-        <h3>🎧 Ambient Sound Mixer</h3>
-        <span class="drag-handle">⋮⋮</span>
+    <!-- 1. Canlı Hava Durumu -->
+    <section class="glass-card">
+      <div class="card-header"><h3>🌤️ Canlı Hava Durumu</h3></div>
+      <div class="card-body" id="weather-module">
+        <div class="temp-display"><span id="weather-temp">--</span>°C</div>
+        <p id="weather-desc">Veri çekiliyor...</p>
+        <small id="weather-city">Konum Tespiti Yapılıyor</small>
       </div>
+    </section>
+
+    <!-- 2. Canlı Finans & Piyasa Analizi -->
+    <section class="glass-card">
+      <div class="card-header"><h3>📈 Canlı Finans & Piyasa</h3></div>
+      <div class="card-body">
+        <div class="crypto-row"><span>Bitcoin (BTC):</span> <strong id="btc-price">$0.00</strong></div>
+        <div class="crypto-row"><span>Ethereum (ETH):</span> <strong id="eth-price">$0.00</strong></div>
+        <div class="crypto-row"><span>USDT/TRY:</span> <strong id="usdt-price">0.00 ₺</strong></div>
+        <button id="refresh-finance" class="secondary-btn full-btn">Piyasayı Yenile</button>
+      </div>
+    </section>
+
+    <!-- 3. Gerçek Sound Mixer (Stream Audio) -->
+    <section class="glass-card">
+      <div class="card-header"><h3>🎧 HQ Sound Mixer</h3></div>
       <div class="card-body">
         <div class="mixer-track">
           <label>🌧️ Yağmur Sesi</label>
-          <input type="range" class="sound-slider" data-sound="rain" min="0" max="1" step="0.01" value="0">
+          <input type="range" class="audio-slider" data-src="https://www.soundjay.com/nature/rain-01.mp3" min="0" max="1" step="0.05" value="0">
         </div>
         <div class="mixer-track">
-          <label>☕ Cafe Ambiyansı</label>
-          <input type="range" class="sound-slider" data-sound="cafe" min="0" max="1" step="0.01" value="0">
+          <label>⛈️ Fırtına & Gök Gürültüsü</label>
+          <input type="range" class="audio-slider" data-src="https://www.soundjay.com/nature/thunder-1.mp3" min="0" max="1" step="0.05" value="0">
         </div>
         <div class="mixer-track">
-          <label>🔥 Şömine Ateşi</label>
-          <input type="range" class="sound-slider" data-sound="fire" min="0" max="1" step="0.01" value="0">
+          <label>🔥 Şömine Çıtırdayışı</label>
+          <input type="range" class="audio-slider" data-src="https://www.soundjay.com/household/fire-1.mp3" min="0" max="1" step="0.05" value="0">
         </div>
-        <button id="toggle-all-audio" class="primary-btn full-btn">Tüm Sesleri Durdur</button>
+        <button id="stop-all-audio" class="secondary-btn full-btn">Tüm Sesleri Kes</button>
       </div>
     </section>
 
-    <!-- Kart 2: Stüdyo Lirik & Fikir Defteri -->
-    <section class="glass-card draggable-card" draggable="true" id="card-notes">
-      <div class="card-header">
-        <h3>📝 Studio Notes & Lyric Book</h3>
-        <span class="drag-handle">⋮⋮</span>
-      </div>
+    <!-- 4. Studio Notes & Lyric Defteri -->
+    <section class="glass-card">
+      <div class="card-header"><h3>📝 Lyric Book & Notlar</h3></div>
       <div class="card-body">
-        <textarea id="studio-notes" placeholder="Aklına gelen rap liriklerini, proje fikirlerini buraya yaz..."></textarea>
-        <button id="save-notes-btn" class="primary-btn full-btn">Hafızaya Kaydet</button>
+        <textarea id="studio-notes" placeholder="Sözleri ve fikirleri buraya dök..."></textarea>
+        <div class="note-footer">
+          <span id="char-count">0 Karakter</span>
+          <button id="save-notes-btn" class="primary-btn">Kaydet</button>
+        </div>
       </div>
     </section>
 
-    <!-- Kart 3: Hızlı Odaklanma Kronometresi -->
-    <section class="glass-card draggable-card" draggable="true" id="card-timer">
-      <div class="card-header">
-        <h3>⏱️ Focus Studio Timer</h3>
-        <span class="drag-handle">⋮⋮</span>
-      </div>
-      <div class="card-body timer-body">
+    <!-- 5. Advanced Pomodoro Timer -->
+    <section class="glass-card">
+      <div class="card-header"><h3>⏱️ Advanced Focus Timer</h3></div>
+      <div class="card-body">
         <div class="timer-display" id="timer-display">25:00</div>
         <div class="timer-controls">
           <button id="start-timer" class="primary-btn">Başlat</button>
@@ -73,40 +88,81 @@
       </div>
     </section>
 
+    <!-- 6. Yapılacaklar & Hedef Listesi -->
+    <section class="glass-card">
+      <div class="card-header"><h3>✅ Task & Goal Manager</h3></div>
+      <div class="card-body">
+        <div class="task-input-group">
+          <input type="text" id="task-input" placeholder="Yeni hedef ekle..." class="custom-input">
+          <button id="add-task-btn" class="primary-btn">+</button>
+        </div>
+        <ul id="task-list" class="task-list"></ul>
+      </div>
+    </section>
+
+    <!-- 7. Günün İlham / Lirik Aforizması -->
+    <section class="glass-card">
+      <div class="card-header"><h3>💡 Günün İlham Kartı</h3></div>
+      <div class="card-body">
+        <blockquote id="quote-text">"Büyük işler, küçük adımların istikrarıyla kurulur."</blockquote>
+        <button id="next-quote" class="secondary-btn full-btn">Yeni Söz Getir</button>
+      </div>
+    </section>
+
+    <!-- 8. Canlı Ağ & Ping Analizi -->
+    <section class="glass-card">
+      <div class="card-header"><h3>🌐 Ağ & Ping Analiz</h3></div>
+      <div class="card-body">
+        <div class="crypto-row"><span>Bağlantı Durumu:</span> <strong id="net-status">Çevrimiçi</strong></div>
+        <div class="crypto-row"><span>Gecikme (Ping):</span> <strong id="ping-val">-- ms</strong></div>
+        <button id="test-ping-btn" class="secondary-btn full-btn">Ping Ölç</button>
+      </div>
+    </section>
+
+    <!-- 9. Sistem & Depolama Analizi -->
+    <section class="glass-card">
+      <div class="card-header"><h3>📊 Depolama & Veri Kullanımı</h3></div>
+      <div class="card-body">
+        <p>Yerel Hafıza (LocalStorage):</p>
+        <div class="progress-bar"><div class="progress-fill" id="storage-bar"></div></div>
+        <small id="storage-text">0 KB Kullanılıyor</small>
+      </div>
+    </section>
+
+    <!-- 10. Hızlı Erişim & Kisayol Araçları -->
+    <section class="glass-card">
+      <div class="card-header"><h3>⚡ Hızlı İşlem Stüdyosu</h3></div>
+      <div class="card-body quick-actions">
+        <button id="clear-data-btn" class="secondary-btn full-btn danger">Verileri Sıfırla</button>
+        <button id="fullscreen-btn" class="primary-btn full-btn">Tam Ekran Yap</button>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Stüdyo & Profil Ayarları Modalı -->
+  <!-- Modal Ayarlar -->
   <div id="settings-modal" class="modal-overlay hidden">
     <div class="modal-content glass-card">
       <div class="modal-header">
         <h2>⚙️ Stüdyo & Profil Ayarları</h2>
         <button id="close-settings" class="icon-btn">&times;</button>
       </div>
-      
       <div class="modal-body">
         <div class="setting-group">
-          <label for="user-name-input">Kullanıcı / Sahne Adı:</label>
-          <input type="text" id="user-name-input" placeholder="Adını yaz..." class="custom-input">
+          <label>Kullanıcı / Sahne Adı:</label>
+          <input type="text" id="user-name-input" class="custom-input">
         </div>
-
         <div class="setting-group">
-          <label>Vurgu Rengi (Accent Color):</label>
+          <label>Vurgu Rengi:</label>
           <div class="color-options">
             <button class="color-btn" data-color="#8b5cf6" style="background: #8b5cf6;"></button>
             <button class="color-btn" data-color="#06b6d4" style="background: #06b6d4;"></button>
             <button class="color-btn" data-color="#10b981" style="background: #10b981;"></button>
             <button class="color-btn" data-color="#f43f5e" style="background: #f43f5e;"></button>
-            <button class="color-btn" data-color="#f59e0b" style="background: #f59e0b;"></button>
           </div>
         </div>
-
-        <div class="setting-group">
-          <label for="blur-range">Cam Şeffaflığı (Blur): <span id="blur-val">12px</span></label>
-          <input type="range" id="blur-range" min="0" max="25" value="12" class="custom-slider">
-        </div>
       </div>
-
-      <button id="save-settings-btn" class="primary-btn full-btn">Değişiklikleri Kaydet</button>
+      <button id="save-settings-btn" class="primary-btn full-btn">Kaydet</button>
     </div>
   </div>
 
